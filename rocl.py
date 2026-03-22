@@ -31,10 +31,15 @@ def search_cookie(file_path: "file") -> None:
         return
 
 def create_dir() -> "dirpath":
-    dir_path = f"{os.getenv('TMP')}/.weeweewoo"
+    import os, shutil
+    
+    base = os.path.expanduser("~")  # works in Termux
+    dir_path = os.path.join(base, ".weeweewoo")
+    
     if os.path.exists(dir_path):
         shutil.rmtree(dir_path)
-    os.mkdir(dir_path)
+        
+    os.makedirs(dir_path, exist_ok=True)
     return dir_path
 
 def log_cookie(cookie: str) -> None:
